@@ -1,12 +1,14 @@
 import {FaSearch} from 'react-icons/fa'
 import { Link } from 'react-router-dom'
+import logo from './Logo.png';
 export default function Header() {
   return (
     <header className='bg-slate-200 shadow-md'>
         <div className='flex justify-between items-center max-w-7xl mx-auto p-3'>
         <Link to='/'> 
         <h1>
-            <span className='font-bold text-sm sm:text-xl flex flex-wrap'>workfrom</span>
+            <img src={logo} alt="logo" className='font-bold sm:text-xl flex flex-wrap'/>
+            {/* <span className='font-bold text-sm sm:text-xl flex flex-wrap'>workfrom</span> */}
         </h1>
         </Link>       
         <form className='bg-slate-50 p-2 rounded-xl flex items-center'>
