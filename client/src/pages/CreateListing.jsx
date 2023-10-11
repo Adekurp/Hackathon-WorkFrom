@@ -19,9 +19,9 @@ export default function CreateListing() {
         description: '',
         address: '',
         type: 'rent',
-        bedrooms: 1,
-        bathrooms: 1,
-        regularPrice: 50,
+        capacity: 1,
+        toilet: 0,
+        regularPrice: 0,
         discountPrice: 0,
         offer: false,
         parking: false,
@@ -244,35 +244,32 @@ return (
             <div className='flex items-center gap-2'>
               <input
                 type='number'
-                id='bedrooms'
+                id='capacity'
                 min='1'
-                max='10'
                 required
                 className='p-3 border border-gray-300 rounded-lg'
                 onChange={handleChange}
-                value={formData.bedrooms}
+                value={formData.capacity}
               />
-              <p>Beds</p>
+              <p>Capacity</p>
             </div>
             <div className='flex items-center gap-2'>
               <input
                 type='number'
-                id='bathrooms'
+                id='toilet'
                 min='1'
-                max='10'
                 required
                 className='p-3 border border-gray-300 rounded-lg'
                 onChange={handleChange}
-                value={formData.bathrooms}
+                value={formData.toilets}
               />
-              <p>Baths</p>
+              <p>Toilet</p>
             </div>
             <div className='flex items-center gap-2'>
               <input
                 type='number'
                 id='regularPrice'
-                min='50'
-                max='10000000'
+                min='0'
                 required
                 className='p-3 border border-gray-300 rounded-lg'
                 onChange={handleChange}
@@ -281,7 +278,7 @@ return (
               <div className='flex flex-col items-center'>
                 <p>Regular price</p>
                 {formData.type === 'rent' && (
-                  <span className='text-xs'>($ / month)</span>
+                  <span className='text-xs'>(Rp / month)</span>
                 )}              
                 </div>
             </div>
@@ -291,7 +288,6 @@ return (
                   type='number'
                   id='discountPrice'
                   min='0'
-                  max='10000000'
                   required
                   className='p-3 border border-gray-300 rounded-lg'
                   onChange={handleChange}
@@ -300,7 +296,7 @@ return (
                 <div className='flex flex-col items-center'>
                   <p>Discounted price</p>
                   {formData.type === 'rent' && (
-                    <span className='text-xs'>($ / month)</span>
+                    <span className='text-xs'>(Rp / month)</span>
                   )}                
                 </div>
             </div>
