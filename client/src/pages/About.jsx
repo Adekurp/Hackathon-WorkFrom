@@ -1,12 +1,12 @@
 export default function About() {
   return (
     <div className='py-20 px-4 max-w-6xl mx-auto'>
-      <h1 className='text-3xl font-bold mb-4 text-slate-800'>About Sahand Estate</h1>
-      <p className='mb-4 text-slate-700'>Sahand Estate is a leading real estate agency that specializes in helping clients buy, sell, and rent properties in the most desirable neighborhoods. Our team of experienced agents is dedicated to providing exceptional service and making the buying and selling process as smooth as possible.</p>
+      <h1 className='text-3xl font-bold mb-4 text-slate-800'>About Workfrom</h1>
+      <p className='mb-4 text-slate-700'>Workfrom merupakan sebuah platform yang menghubungkan penyewa dengan ruang kantor ataupun coworking space yang berada di berbagai lokasi. Kami dapat membantu menemukan kebutuhan penyewa dan pemilik gedung.</p>
       <p className='mb-4 text-slate-700'>
-      Our mission is to help our clients achieve their real estate goals by providing expert advice, personalized service, and a deep understanding of the local market. Whether you are looking to buy, sell, or rent a property, we are here to help you every step of the way.
+      Dengan berbagai pilihan ruangan yang dapat disesuaikan dengan kebutuhan customer, kami akan membantu Anda mencari ruangan kerja yang sesuai dengan anggaran dan kebutuhan customer.
       </p>
-      <p className='mb-4 text-slate-700'>Our team of agents has a wealth of experience and knowledge in the real estate industry, and we are committed to providing the highest level of service to our clients. We believe that buying or selling a property should be an exciting and rewarding experience, and we are dedicated to making that a reality for each and every one of our clients.</p>
+      <p className='mb-4 text-slate-700'>Terdapat fasilitas-fasilitas yang ditawarkan, yaitu koneksi internet super cepat, minuman gratis, ruang hiburan dan lounge, serta peluang untuk memperluas jaringan Anda.</p>
     </div>
   )
 }
