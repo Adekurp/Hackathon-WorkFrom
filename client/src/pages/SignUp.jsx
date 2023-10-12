@@ -45,26 +45,32 @@ export default function SignUp() {
   };
   console.log(formData);
   return (
-    <div className='p-3 max-w-lg mx-auto'>
-      <h1 className='text-3xl text-center font-semibold my-7'>
-        Sign Up
-      </h1>
-      <form onSubmit={handleSubmit} className='flex flex-col gap-4'>
-        <input type="text" placeholder='username' className='border p-3 rounded-xl' id='username' onChange={handleChange}/>
-        <input type="text" placeholder='email' className='border p-3 rounded-xl' id='email' onChange={handleChange}/>
-        <input type="password" placeholder='password' className='border p-3 rounded-xl' id='password' onChange={handleChange}/>
-        <button disabled={loading} className='bg-slate-700 text-white p-3 rounded-xl uppercase hover:opacity-95 disabled:opacity-80'>
-        {loading ? 'Loading....' : 'Sign Up'}
-        </button>
-        <OAuth/>
-      </form>
-      <div className='flex gap-2 mt-5'>
-        <p>Have an account?</p>
-        <Link to={"/sign-in"}>
-        <span className='text-blue-500'>Sign in</span>        
-        </Link>
+    <div className='bg-slate-950'>
+      <div className='p-3 max-w-lg mx-auto mr-9'>
+        <h1 className='text-3xl text-slate-300 font-semibold my-4'>Sign Up</h1>
+        <p className='text-slate-300'>If you already have an account register</p>
+        <div className='flex gap-2 mb-5 text-slate-300'>
+          <p>Have an account?</p>
+          <Link to={'/sign-in'}>
+            <span className='text-lime-300'>Login here !</span>
+          </Link>
+        </div>
+        <form onSubmit={handleSubmit} className='flex flex-col'>
+          <b className='text-slate-300'>Username</b>
+          <input type="text" placeholder='username' className='border p-3 rounded-xl mb-4' id='username' onChange={handleChange}/>
+          <b className='text-slate-300'>Email</b>
+          <input type="text" placeholder='email' className='border p-3 rounded-xl mb-4' id='email' onChange={handleChange}/>
+          <b className='text-slate-300'>Password</b>
+          <input type="password" placeholder='password' className='border p-3 rounded-xl mb-4' id='password' onChange={handleChange}/>
+          <button disabled={loading} className='bg-lime-300 text-slate-700 p-3 rounded-xl mb-4 uppercase hover:opacity-95 disabled:opacity-80'>
+          {loading ? 'Loading....' : 'Sign Up'}
+          </button>
+          <p className='text-center mb-4 text-slate-300'>or continue with</p>
+          <OAuth/>
+        </form>
+        
+        {error && <p className='text-red-500 mt-5'>{error}</p>}
       </div>
-      {error && <p className='text-red-500 mt-5'>{error}</p>}
     </div>
   )
 }

@@ -154,133 +154,197 @@ export default function Profile() {
     }
   };
   return (
-    <div className='p-3 max-w-lg mx-auto'>
-      <h1 className='text-3xl font-semibold text-center my-7'>Profile</h1>
-      <form onSubmit={handleSubmit} className='flex flex-col gap-4'>
-        <input
-          onChange={(e) => setFile(e.target.files[0])}
-          type='file'
-          ref={fileRef}
-          hidden
-          accept='image/*'
-        />
-        <img
-          onClick={() => fileRef.current.click()}
-          src={formData.avatar || currentUser.avatar}
-          alt='profile'
-          className='rounded-full h-24 w-24 object-cover cursor-pointer self-center mt-2'
-        />
-        <p className='text-sm self-center'>
-          {fileUploadError ? (
-            <span className='text-red-700'>
-              Error Image upload (image must be less than 2 mb)
-            </span>
-          ) : filePerc > 0 && filePerc < 100 ? (
-            <span className='text-slate-700'>{`Uploading ${filePerc}%`}</span>
-          ) : filePerc === 100 ? (
-            <span className='text-green-700'>Image successfully uploaded!</span>
-          ) : (
-            ''
-          )}
+    <div>
+      <div className='p-3 max-w-lg mx-auto'>
+        <h1 className='text-3xl font-semibold text-center my-7'>Profile</h1>
+        <form onSubmit={handleSubmit} className='flex flex-col gap-4'>
+          <input
+            onChange={(e) => setFile(e.target.files[0])}
+            type='file'
+            ref={fileRef}
+            hidden
+            accept='image/*'
+          />
+          <img
+            onClick={() => fileRef.current.click()}
+            src={formData.avatar || currentUser.avatar}
+            alt='profile'
+            className='rounded-full h-24 w-24 object-cover cursor-pointer self-center mt-2'
+          />
+          <p className='text-sm self-center'>
+            {fileUploadError ? (
+              <span className='text-red-700'>
+                Error Image upload (image must be less than 2 mb)
+              </span>
+            ) : filePerc > 0 && filePerc < 100 ? (
+              <span className='text-slate-700'>{`Uploading ${filePerc}%`}</span>
+            ) : filePerc === 100 ? (
+              <span className='text-green-700'>Image successfully uploaded!</span>
+            ) : (
+              ''
+            )}
+          </p>
+          <input
+            type='text'
+            placeholder='username'
+            defaultValue={currentUser.username}
+            id='username'
+            className='border p-3 rounded-lg'
+            onChange={handleChange}
+          />
+          <input
+            type='email'
+            placeholder='email'
+            id='email'
+            defaultValue={currentUser.email}
+            className='border p-3 rounded-lg'
+            onChange={handleChange}
+          />
+          <input
+            type='password'
+            placeholder='password'
+            onChange={handleChange}
+            id='password'
+            className='border p-3 rounded-lg'
+          />
+          <button
+            disabled={loading}
+            className='bg-slate-700 text-white rounded-lg p-3 uppercase hover:opacity-95 disabled:opacity-80'
+          >
+            {loading ? 'Loading...' : 'Update'}
+          </button>
+          <Link
+            className='bg-green-700 text-white p-3 rounded-lg uppercase text-center hover:opacity-95'
+            to={'/create-listing'}
+          >
+            Create Listing
+          </Link>
+        </form>
+        <div className='flex justify-between mt-5'>
+          <span
+            onClick={handleDeleteUser}
+            className='text-red-700 cursor-pointer'
+          >
+            Delete account
+          </span>
+          <span onClick={handleSignOut} className='text-red-700 cursor-pointer'>
+            Sign out
+          </span>
+        </div>
+
+        <p className='text-red-700 mt-5'>{error ? error : ''}</p>
+        <p className='text-green-700 mt-5'>
+          {updateSuccess ? 'User is updated successfully!' : ''}
         </p>
-        <input
-          type='text'
-          placeholder='username'
-          defaultValue={currentUser.username}
-          id='username'
-          className='border p-3 rounded-lg'
-          onChange={handleChange}
-        />
-        <input
-          type='email'
-          placeholder='email'
-          id='email'
-          defaultValue={currentUser.email}
-          className='border p-3 rounded-lg'
-          onChange={handleChange}
-        />
-        <input
-          type='password'
-          placeholder='password'
-          onChange={handleChange}
-          id='password'
-          className='border p-3 rounded-lg'
-        />
-        <button
-          disabled={loading}
-          className='bg-slate-700 text-white rounded-lg p-3 uppercase hover:opacity-95 disabled:opacity-80'
-        >
-          {loading ? 'Loading...' : 'Update'}
+        <button onClick={handleShowListings} className='text-green-700 w-full'>
+          Show Listings
         </button>
-        <Link
-          className='bg-green-700 text-white p-3 rounded-lg uppercase text-center hover:opacity-95'
-          to={'/create-listing'}
-        >
-          Create Listing
-        </Link>
-      </form>
-      <div className='flex justify-between mt-5'>
-        <span
-          onClick={handleDeleteUser}
-          className='text-red-700 cursor-pointer'
-        >
-          Delete account
-        </span>
-        <span onClick={handleSignOut} className='text-red-700 cursor-pointer'>
-          Sign out
-        </span>
+        <p className='text-red-700 mt-5'>
+          {showListingsError ? 'Error showing listings' : ''}
+        </p>
+
+        {userListings && userListings.length > 0 && (
+          <div className='flex flex-col gap-4'>
+            <h1 className='text-center mt-7 text-2xl font-semibold'>
+              Your Listings
+            </h1>
+            {userListings.map((listing) => (
+              <div
+                key={listing._id}
+                className='border rounded-lg p-3 flex justify-between items-center gap-4'
+              >
+                <Link to={`/listing/${listing._id}`}>
+                  <img
+                    src={listing.imageUrls[0]}
+                    alt='listing cover'
+                    className='h-16 w-16 object-contain'
+                  />
+                </Link>
+                <Link
+                  className='text-slate-700 font-semibold  hover:underline truncate flex-1'
+                  to={`/listing/${listing._id}`}
+                >
+                  <p>{listing.name}</p>
+                </Link>
+
+                <div className='flex flex-row item-center'>
+                  <Link to={`/update-listing/${listing._id}`}>
+                    <button className='text-sky-500 uppercase border border-sky-500 p-1 rounded-md'>Edit</button>
+                  </Link>
+                  <button
+                    onClick={() => handleListingDelete(listing._id)}
+                    className='text-red-700 uppercase border border-red-700 p-1 rounded-md ml-3'
+                  >
+                    Delete
+                  </button>
+                </div>
+              </div>
+            ))}
+          </div>
+        )}
       </div>
 
-      <p className='text-red-700 mt-5'>{error ? error : ''}</p>
-      <p className='text-green-700 mt-5'>
-        {updateSuccess ? 'User is updated successfully!' : ''}
-      </p>
-      <button onClick={handleShowListings} className='text-green-700 w-full'>
-        Show Listings
-      </button>
-      <p className='text-red-700 mt-5'>
-        {showListingsError ? 'Error showing listings' : ''}
-      </p>
-
-      {userListings && userListings.length > 0 && (
-        <div className='flex flex-col gap-4'>
-          <h1 className='text-center mt-7 text-2xl font-semibold'>
-            Your Listings
-          </h1>
-          {userListings.map((listing) => (
-            <div
-              key={listing._id}
-              className='border rounded-lg p-3 flex justify-between items-center gap-4'
-            >
-              <Link to={`/listing/${listing._id}`}>
-                <img
-                  src={listing.imageUrls[0]}
-                  alt='listing cover'
-                  className='h-16 w-16 object-contain'
-                />
-              </Link>
-              <Link
-                className='text-slate-700 font-semibold  hover:underline truncate flex-1'
-                to={`/listing/${listing._id}`}
-              >
-                <p>{listing.name}</p>
-              </Link>
-
-              <div className='flex flex-col item-center'>
+      {/* Footer */}
+      <div className='bg-slate-950'>
+        <div className='gap-6 p-20 px-3 mx-auto text-center'>
+          <div className='grid grid-cols-3'>
+            <div>
               <button
-                  onClick={() => handleListingDelete(listing._id)}
-                  className='text-red-700 uppercase'
+                className='border border-lime-200 text-white p-1 w-50 shadow-md mb-9'
                 >
-                  Delete
-                </button>                
-                <Link to={`/update-listing/${listing._id}`}>
-                  <button className='text-green-700 uppercase'>Edit</button>
-                </Link>
+                <b className='text-slate-700 font-bold text-3xl lg:text-4xl'>workform</b>
+              </button>
+              <h1 className='text-slate-700 text-xs sm:text-sm '>
+              Komp. Ruko Centre Point Medan Jalan
+              <br />
+              Timor Blok G No. III/IV 2nd Floor, Gang
+              <br />
+              Buntu, Medan Timur, Medan City, 
+              <br />
+              North Sumatra 20231
+              </h1>
+            </div>
+            <div className='grid grid-cols-2 place-self-center text-slate-700 text-left'>
+              <div>
+                <h1 className='text-slate-700 font-bold'>
+                  As owner
+                </h1>
+                <p className='text-slate-700 text-xs sm:text-sm'>Location</p>
+                <p className='text-slate-700 text-xs sm:text-sm'>Use Case</p>
+              </div>
+              <div>
+                <h1 className='text-slate-700 font-bold'>
+                  As a tenant
+                </h1>
+                <p className='text-slate-700 text-xs sm:text-sm'>Manage Listing</p>
+                <p className='text-slate-700 text-xs sm:text-sm'>Payments</p>
               </div>
             </div>
-          ))}
-         </div>
-      )}
+            <div className='place-self-center'>
+              <button
+                className='bg-lime-200 rounded-lg text-white p-3 mr-2'
+                >
+              </button>
+              <button
+                className='bg-lime-200 rounded-lg text-white p-3 mr-2'
+                >
+              </button>
+              <button
+                className='bg-lime-200 rounded-lg text-white p-3 mr-2'
+                >
+              </button>
+              <button
+                className='bg-lime-200 rounded-lg text-white p-3 mr-2'
+                >
+              </button>
+              <button
+                className='bg-lime-200 rounded-lg text-white p-3 mr-2'
+                >
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   );
 }
