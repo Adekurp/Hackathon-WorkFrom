@@ -43,29 +43,31 @@ export default function SignIn() {
   };
   console.log(formData);
   return (
-    <div className='p-3 max-w-lg mx-auto mr-9'>
-        <h1 className='text-3xl font-semibold my-7 text-slate-700'>Sign In</h1>
-        <p className='text-slate-700'>If you dont have an account register</p>
-        <div className='flex gap-2 mb-5 text-slate-700'>
+    <body className='bg-slate-950'>
+      <div className='p-3 max-w-lg mx-auto mr-9'>
+        <h1 className='text-3xl font-semibold my-7 text-slate-300'>Sign In</h1>
+        <p className='text-slate-300'>If you dont have an account register</p>
+        <div className='flex gap-2 mb-5 text-slate-300'>
           You can
           <Link to={'/sign-up'}>
-            <span className='text-lime-600'>Register here !</span>
+            <span className='text-lime-300'>Register here !</span>
           </Link>
         </div>
         <form onSubmit={handleSubmit} className='flex flex-col gap-4'>
-          <b className='text-slate-700'>Email</b>
+          <b className='text-slate-300'>Email</b>
           <input type="text" placeholder='Enter your email address' className='border p-3 rounded-xl' id='email' onChange={handleChange}/>
-          <b className='text-slate-700'>Password</b>
+          <b className='text-slate-300'>Password</b>
           <input type="password" placeholder='Enter your password' className='border p-3 rounded-xl' id='password' onChange={handleChange}/>
           <button disabled={loading} className='bg-lime-300 text-slate-700 p-3 rounded-xl uppercase hover:opacity-95 disabled:opacity-80'>
           {loading ? 'Loading....' : 'Sign In'}
           </button>
-          <p className='text-center text-slate-700'>or continue with</p>
+          <p className='text-center text-slate-300'>or continue with</p>
           <OAuth/>
         </form>
         
         {error && <p className='text-red-500 mt-5'>{error}</p>}
       </div>
+    </body>
     
   )
 }
